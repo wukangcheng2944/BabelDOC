@@ -1,0 +1,122 @@
+import type { LanguageOption } from '@/types/config';
+
+export const commonLanguageCodes = [
+  'en', 'zh-CN', 'zh-TW', 'ja', 'ko', 'fr', 'de', 'es', 'pt', 'ru', 'it', 'nl', 'pl', 'tr', 'vi',
+];
+
+export const languages: LanguageOption[] = [
+  { code: 'en', nameEn: 'English', nameZh: '英语' },
+  { code: 'zh-CN', nameEn: 'Simplified Chinese', nameZh: '简体中文' },
+  { code: 'zh-TW', nameEn: 'Traditional Chinese (Taiwan)', nameZh: '繁体中文（台湾）' },
+  { code: 'zh-HK', nameEn: 'Traditional Chinese (Hong Kong)', nameZh: '繁体中文（香港）' },
+  { code: 'zh', nameEn: 'Chinese', nameZh: '中文' },
+  { code: 'ja', nameEn: 'Japanese', nameZh: '日语' },
+  { code: 'ko', nameEn: 'Korean', nameZh: '韩语' },
+  { code: 'fr', nameEn: 'French', nameZh: '法语' },
+  { code: 'de', nameEn: 'German', nameZh: '德语' },
+  { code: 'es', nameEn: 'Spanish', nameZh: '西班牙语' },
+  { code: 'pt', nameEn: 'Portuguese', nameZh: '葡萄牙语' },
+  { code: 'pt-BR', nameEn: 'Portuguese (Brazilian)', nameZh: '葡萄牙语（巴西）' },
+  { code: 'ru', nameEn: 'Russian', nameZh: '俄语' },
+  { code: 'it', nameEn: 'Italian', nameZh: '意大利语' },
+  { code: 'nl', nameEn: 'Dutch', nameZh: '荷兰语' },
+  { code: 'pl', nameEn: 'Polish', nameZh: '波兰语' },
+  { code: 'tr', nameEn: 'Turkish', nameZh: '土耳其语' },
+  { code: 'vi', nameEn: 'Vietnamese', nameZh: '越南语' },
+  { code: 'th', nameEn: 'Thai', nameZh: '泰语' },
+  { code: 'id', nameEn: 'Indonesian', nameZh: '印度尼西亚语' },
+  { code: 'ms', nameEn: 'Malay', nameZh: '马来语' },
+  { code: 'ar', nameEn: 'Arabic', nameZh: '阿拉伯语' },
+  { code: 'hi', nameEn: 'Hindi', nameZh: '印地语' },
+  { code: 'bn', nameEn: 'Bengali', nameZh: '孟加拉语' },
+  { code: 'ur', nameEn: 'Urdu', nameZh: '乌尔都语' },
+  { code: 'fa', nameEn: 'Persian', nameZh: '波斯语' },
+  { code: 'he', nameEn: 'Hebrew', nameZh: '希伯来语' },
+  { code: 'uk', nameEn: 'Ukrainian', nameZh: '乌克兰语' },
+  { code: 'cs', nameEn: 'Czech', nameZh: '捷克语' },
+  { code: 'sk', nameEn: 'Slovak', nameZh: '斯洛伐克语' },
+  { code: 'hu', nameEn: 'Hungarian', nameZh: '匈牙利语' },
+  { code: 'ro', nameEn: 'Romanian', nameZh: '罗马尼亚语' },
+  { code: 'bg', nameEn: 'Bulgarian', nameZh: '保加利亚语' },
+  { code: 'hr', nameEn: 'Croatian', nameZh: '克罗地亚语' },
+  { code: 'sr', nameEn: 'Serbian', nameZh: '塞尔维亚语' },
+  { code: 'sl', nameEn: 'Slovenian', nameZh: '斯洛文尼亚语' },
+  { code: 'et', nameEn: 'Estonian', nameZh: '爱沙尼亚语' },
+  { code: 'lv', nameEn: 'Latvian', nameZh: '拉脱维亚语' },
+  { code: 'lt', nameEn: 'Lithuanian', nameZh: '立陶宛语' },
+  { code: 'fi', nameEn: 'Finnish', nameZh: '芬兰语' },
+  { code: 'sv', nameEn: 'Swedish', nameZh: '瑞典语' },
+  { code: 'no', nameEn: 'Norwegian', nameZh: '挪威语' },
+  { code: 'da', nameEn: 'Danish', nameZh: '丹麦语' },
+  { code: 'el', nameEn: 'Greek', nameZh: '希腊语' },
+  { code: 'ca', nameEn: 'Catalan', nameZh: '加泰罗尼亚语' },
+  { code: 'eu', nameEn: 'Basque', nameZh: '巴斯克语' },
+  { code: 'gl', nameEn: 'Galician', nameZh: '加利西亚语' },
+  { code: 'af', nameEn: 'Afrikaans', nameZh: '南非荷兰语' },
+  { code: 'sw', nameEn: 'Swahili', nameZh: '斯瓦希里语' },
+  { code: 'tl', nameEn: 'Filipino', nameZh: '菲律宾语' },
+  { code: 'ne', nameEn: 'Nepali', nameZh: '尼泊尔语' },
+  { code: 'si', nameEn: 'Sinhala', nameZh: '僧伽罗语' },
+  { code: 'km', nameEn: 'Khmer', nameZh: '高棉语' },
+  { code: 'lo', nameEn: 'Lao', nameZh: '老挝语' },
+  { code: 'my', nameEn: 'Burmese', nameZh: '缅甸语' },
+  { code: 'ka', nameEn: 'Georgian', nameZh: '格鲁吉亚语' },
+  { code: 'hy', nameEn: 'Armenian', nameZh: '亚美尼亚语' },
+  { code: 'az', nameEn: 'Azerbaijani', nameZh: '阿塞拜疆语' },
+  { code: 'kk', nameEn: 'Kazakh', nameZh: '哈萨克语' },
+  { code: 'uz', nameEn: 'Uzbek', nameZh: '乌兹别克语' },
+  { code: 'mn', nameEn: 'Mongolian', nameZh: '蒙古语' },
+  { code: 'sq', nameEn: 'Albanian', nameZh: '阿尔巴尼亚语' },
+  { code: 'mk', nameEn: 'Macedonian', nameZh: '马其顿语' },
+  { code: 'bs', nameEn: 'Bosnian', nameZh: '波斯尼亚语' },
+  { code: 'is', nameEn: 'Icelandic', nameZh: '冰岛语' },
+  { code: 'ga', nameEn: 'Irish', nameZh: '爱尔兰语' },
+  { code: 'cy', nameEn: 'Welsh', nameZh: '威尔士语' },
+  { code: 'mt', nameEn: 'Maltese', nameZh: '马耳他语' },
+  { code: 'lb', nameEn: 'Luxembourgish', nameZh: '卢森堡语' },
+  { code: 'be', nameEn: 'Belarusian', nameZh: '白俄罗斯语' },
+  { code: 'am', nameEn: 'Amharic', nameZh: '阿姆哈拉语' },
+  { code: 'zu', nameEn: 'Zulu', nameZh: '祖鲁语' },
+  { code: 'xh', nameEn: 'Xhosa', nameZh: '科萨语' },
+  { code: 'yo', nameEn: 'Yoruba', nameZh: '约鲁巴语' },
+  { code: 'ig', nameEn: 'Igbo', nameZh: '伊博语' },
+  { code: 'ha', nameEn: 'Hausa', nameZh: '豪萨语' },
+  { code: 'so', nameEn: 'Somali', nameZh: '索马里语' },
+  { code: 'mg', nameEn: 'Malagasy', nameZh: '马尔加什语' },
+  { code: 'ny', nameEn: 'Chichewa', nameZh: '齐切瓦语' },
+  { code: 'sn', nameEn: 'Shona', nameZh: '绍纳语' },
+  { code: 'rw', nameEn: 'Kinyarwanda', nameZh: '基尼亚卢旺达语' },
+  { code: 'la', nameEn: 'Latin', nameZh: '拉丁语' },
+  { code: 'eo', nameEn: 'Esperanto', nameZh: '世界语' },
+  { code: 'jv', nameEn: 'Javanese', nameZh: '爪哇语' },
+  { code: 'su', nameEn: 'Sundanese', nameZh: '巽他语' },
+  { code: 'ceb', nameEn: 'Cebuano', nameZh: '宿务语' },
+  { code: 'hmn', nameEn: 'Hmong', nameZh: '苗语' },
+  { code: 'haw', nameEn: 'Hawaiian', nameZh: '夏威夷语' },
+  { code: 'mi', nameEn: 'Maori', nameZh: '毛利语' },
+  { code: 'sm', nameEn: 'Samoan', nameZh: '萨摩亚语' },
+  { code: 'gd', nameEn: 'Scottish Gaelic', nameZh: '苏格兰盖尔语' },
+  { code: 'fy', nameEn: 'Frisian', nameZh: '弗里斯兰语' },
+  { code: 'co', nameEn: 'Corsican', nameZh: '科西嘉语' },
+  { code: 'ku', nameEn: 'Kurdish', nameZh: '库尔德语' },
+  { code: 'ps', nameEn: 'Pashto', nameZh: '普什图语' },
+  { code: 'sd', nameEn: 'Sindhi', nameZh: '信德语' },
+  { code: 'ug', nameEn: 'Uyghur', nameZh: '维吾尔语' },
+  { code: 'yi', nameEn: 'Yiddish', nameZh: '意第绪语' },
+];
+
+export function getLanguageLabel(code: string, locale: 'zh' | 'en'): string {
+  const lang = languages.find((l) => l.code.toLowerCase() === code.toLowerCase());
+  if (!lang) return code;
+  return locale === 'zh' ? `${lang.nameZh} (${lang.code})` : `${lang.nameEn} (${lang.code})`;
+}
+
+export function getSortedLanguages(): LanguageOption[] {
+  const common = languages.filter((l) =>
+    commonLanguageCodes.includes(l.code.toLowerCase()) || commonLanguageCodes.includes(l.code)
+  );
+  const rest = languages.filter(
+    (l) => !commonLanguageCodes.includes(l.code.toLowerCase()) && !commonLanguageCodes.includes(l.code)
+  );
+  return [...common, ...rest];
+}
