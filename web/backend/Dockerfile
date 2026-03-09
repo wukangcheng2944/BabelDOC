@@ -1,6 +1,8 @@
 # Build context must be BabelDOC repo root (set via docker-compose)
 FROM python:3.12-slim
 
+WORKDIR /babeldoc
+
 # System deps for BabelDOC native libs
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -9,8 +11,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libhyperscan5 \
     libspatialindex-dev \
     && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /babeldoc
 
 # Copy BabelDOC source and install it
 COPY pyproject.toml README.md ./

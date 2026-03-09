@@ -1,7 +1,8 @@
 import { useState, useCallback, useRef } from "react";
 import { Library, Upload, X, FileSpreadsheet } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SectionCard } from "@/components/shared/SectionCard";
+import { toast } from "sonner";
+import { BentoCard } from "@/components/shared/BentoCard";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/hooks/use-i18n";
 import { uploadGlossary } from "@/lib/api";
@@ -36,14 +37,16 @@ export function GlossarySection({
       try {
         const { fileId } = await uploadGlossary(file);
         onGlossaryAdd({ id: fileId, name: file.name, size: file.size });
-      } catch {
-        // Handle error silently for now
+      } catch (err) {
+        toast.error(t("glossary.uploadError"), {
+          description: err instanceof Error ? err.message : undefined,
+        });
       } finally {
         setUploading(false);
         if (inputRef.current) inputRef.current.value = "";
       }
     },
-    [onGlossaryAdd]
+    [onGlossaryAdd, t]
   );
 
   const formatSize = (bytes: number) => {
@@ -53,14 +56,12 @@ export function GlossarySection({
   };
 
   return (
-    <SectionCard
-      id="glossary"
-      icon={Library}
-      title={t("glossary.title")}
-      defaultOpen={false}
-      delay={0.3}
-    >
-      <div className="space-y-4">
+    <BentoCard>
+      <div className="flex items-center gap-2 mb-3">
+        <Library className="h-4 w-4 text-muted-foreground" />
+        <h3 className="text-sm font-semibold">{t("glossary.title")}</h3>
+      </div>
+      <div className="space-y-3">
         <div>
           <input
             ref={inputRef}
@@ -77,13 +78,13 @@ export function GlossarySection({
             className="gap-2"
           >
             <Upload className="h-4 w-4" />
-            {uploading ? "..." : t("glossary.upload")}
+            {uploading ? t("glossary.uploading") : t("glossary.upload")}
           </Button>
-          <p className="mt-1 text-xs text-slate-400">{t("glossary.uploadHint")}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{t("glossary.uploadHint")}</p>
         </div>
 
         {glossaryFiles.length === 0 ? (
-          <p className="text-sm text-slate-400">{t("glossary.empty")}</p>
+          <p className="text-sm text-muted-foreground">{t("glossary.empty")}</p>
         ) : (
           <div className="space-y-2">
             <AnimatePresence>
@@ -93,19 +94,19 @@ export function GlossarySection({
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="flex items-center justify-between rounded-lg border border-gray-100 bg-gray-50/50 p-2.5"
+                  className="flex items-center justify-between rounded-lg border border-border/50 bg-muted/30 p-2.5"
                 >
                   <div className="flex items-center gap-2">
-                    <FileSpreadsheet className="h-4 w-4 text-green-600" />
-                    <span className="text-sm text-slate-700">{gf.name}</span>
-                    <span className="text-xs text-slate-400">
+                    <FileSpreadsheet className="h-4 w-4 text-green-500" />
+                    <span className="text-sm text-foreground">{gf.name}</span>
+                    <span className="text-xs text-muted-foreground">
                       {formatSize(gf.size)}
                     </span>
                   </div>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-7 w-7 text-slate-400 hover:text-red-500"
+                    className="h-7 w-7 text-muted-foreground hover:text-destructive"
                     onClick={() => onGlossaryRemove(gf.id)}
                   >
                     <X className="h-3.5 w-3.5" />
@@ -116,6 +117,6 @@ export function GlossarySection({
           </div>
         )}
       </div>
-    </SectionCard>
+    </BentoCard>
   );
 }

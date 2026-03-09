@@ -1,4 +1,4 @@
-import { Globe, Github } from "lucide-react";
+import { Globe, Github, Upload, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,27 +8,51 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useI18n } from "@/hooks/use-i18n";
 
-export function Header() {
-  const { locale, setLocale } = useI18n();
+interface HeaderProps {
+  onImport?: () => void;
+  onExport?: () => void;
+}
+
+export function Header({ onImport, onExport }: HeaderProps) {
+  const { locale, setLocale, t } = useI18n();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
       <div className="flex h-14 items-center justify-between px-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white font-bold text-sm">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm">
             B
           </div>
           <div>
-            <h1 className="text-base font-semibold tracking-tight text-slate-900">
+            <h1 className="text-base font-semibold tracking-tight text-foreground">
               BabelDOC Web
             </h1>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="hidden sm:flex gap-2 text-muted-foreground hover:text-foreground"
+            onClick={onImport}
+          >
+            <Upload className="h-4 w-4" />
+            <span className="hidden md:inline">{t("header.importConfig")}</span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="hidden sm:flex gap-2 text-muted-foreground hover:text-foreground"
+            onClick={onExport}
+          >
+            <Download className="h-4 w-4" />
+            <span className="hidden md:inline">{t("header.exportConfig")}</span>
+          </Button>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-2 text-slate-600">
+              <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-foreground">
                 <Globe className="h-4 w-4" />
                 {locale === "zh" ? "中文" : "English"}
               </Button>
@@ -46,7 +70,7 @@ export function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="text-slate-600"
+            className="text-muted-foreground hover:text-foreground"
             asChild
           >
             <a

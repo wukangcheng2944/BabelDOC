@@ -25,7 +25,7 @@ export function ParamSwitch({
       <Switch
         checked={checked}
         onCheckedChange={onCheckedChange}
-        disabled={disabled}
+        disabled={disabled || overridden}
       />
     </ParamRow>
   );

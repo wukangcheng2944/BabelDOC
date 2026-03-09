@@ -1,5 +1,5 @@
 import { Gauge } from "lucide-react";
-import { SectionCard } from "@/components/shared/SectionCard";
+import { BentoCard } from "@/components/shared/BentoCard";
 import { ParamRow } from "@/components/shared/ParamRow";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -11,13 +11,11 @@ export function PerformanceSection() {
   const { config, setField } = useConfig();
 
   return (
-    <SectionCard
-      id="performance"
-      icon={Gauge}
-      title={t("performance.title")}
-      defaultOpen={false}
-      delay={0.5}
-    >
+    <BentoCard>
+      <div className="flex items-center gap-2 mb-3">
+        <Gauge className="h-4 w-4 text-muted-foreground" />
+        <h3 className="text-sm font-semibold">{t("performance.title")}</h3>
+      </div>
       <div className="space-y-3">
         <ParamRow label={t("performance.qps")} tooltip={t("performance.qpsDesc")}>
           <div className="flex items-center gap-3 w-48">
@@ -29,7 +27,7 @@ export function PerformanceSection() {
               step={1}
               className="flex-1"
             />
-            <span className="text-xs text-slate-500 w-8 text-right font-mono">
+            <span className="text-xs text-muted-foreground w-8 text-right font-mono">
               {config.qps}
             </span>
           </div>
@@ -111,6 +109,6 @@ export function PerformanceSection() {
           />
         </ParamRow>
       </div>
-    </SectionCard>
+    </BentoCard>
   );
 }

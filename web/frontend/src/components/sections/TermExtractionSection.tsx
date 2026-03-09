@@ -1,5 +1,5 @@
 import { BookOpen } from "lucide-react";
-import { SectionCard } from "@/components/shared/SectionCard";
+import { BentoCard } from "@/components/shared/BentoCard";
 import { ParamSwitch } from "@/components/shared/ParamSwitch";
 import { PasswordInput } from "@/components/shared/PasswordInput";
 import { Input } from "@/components/ui/input";
@@ -12,14 +12,12 @@ export function TermExtractionSection() {
   const { config, setField } = useConfig();
 
   return (
-    <SectionCard
-      id="term-extraction"
-      icon={BookOpen}
-      title={t("termExtraction.title")}
-      defaultOpen={false}
-      delay={0.2}
-    >
-      <div className="space-y-4">
+    <BentoCard>
+      <div className="flex items-center gap-2 mb-3">
+        <BookOpen className="h-4 w-4 text-muted-foreground" />
+        <h3 className="text-sm font-semibold">{t("termExtraction.title")}</h3>
+      </div>
+      <div className="space-y-3">
         <ParamSwitch
           label={t("termExtraction.autoExtract")}
           checked={config.autoExtractGlossary}
@@ -37,12 +35,12 @@ export function TermExtractionSection() {
         />
 
         {config.useIndependentTermModel && (
-          <div className="ml-4 space-y-3 border-l-2 border-blue-100 pl-4">
-            <p className="text-xs font-medium text-slate-500">
+          <div className="ml-4 space-y-3 border-l-2 border-primary/30 pl-4">
+            <p className="text-xs font-medium text-muted-foreground">
               {t("termExtraction.independentModelConfig")}
             </p>
             <div className="space-y-1.5">
-              <Label className="text-xs text-slate-500">
+              <Label className="text-xs text-muted-foreground">
                 {t("termExtraction.model")}
               </Label>
               <Input
@@ -54,7 +52,7 @@ export function TermExtractionSection() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label className="text-xs text-slate-500">
+              <Label className="text-xs text-muted-foreground">
                 {t("termExtraction.apiKey")}
               </Label>
               <PasswordInput
@@ -64,7 +62,7 @@ export function TermExtractionSection() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label className="text-xs text-slate-500">
+              <Label className="text-xs text-muted-foreground">
                 {t("termExtraction.baseUrl")}
               </Label>
               <Input
@@ -76,7 +74,7 @@ export function TermExtractionSection() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label className="text-xs text-slate-500">
+              <Label className="text-xs text-muted-foreground">
                 {t("termExtraction.reasoning")}
               </Label>
               <Input
@@ -90,6 +88,6 @@ export function TermExtractionSection() {
           </div>
         )}
       </div>
-    </SectionCard>
+    </BentoCard>
   );
 }

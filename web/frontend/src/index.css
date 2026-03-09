@@ -3,35 +3,26 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.985 0 0);
-  --foreground: oklch(0.145 0.015 285);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0.015 285);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0.015 285);
-  --primary: oklch(0.51 0.18 264);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.96 0.005 285);
-  --secondary-foreground: oklch(0.2 0.015 285);
-  --muted: oklch(0.96 0.005 285);
-  --muted-foreground: oklch(0.55 0.015 285);
-  --accent: oklch(0.96 0.005 285);
-  --accent-foreground: oklch(0.2 0.015 285);
+  --background: oklch(0.1 0.005 285);
+  --foreground: oklch(0.93 0.005 285);
+  --card: oklch(0.14 0.005 285);
+  --card-foreground: oklch(0.93 0.005 285);
+  --popover: oklch(0.14 0.005 285);
+  --popover-foreground: oklch(0.93 0.005 285);
+  --primary: oklch(0.55 0.20 264);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.18 0.01 285);
+  --secondary-foreground: oklch(0.88 0.005 285);
+  --muted: oklch(0.18 0.005 285);
+  --muted-foreground: oklch(0.55 0.01 285);
+  --accent: oklch(0.18 0.01 285);
+  --accent-foreground: oklch(0.88 0.005 285);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.922 0.005 285);
-  --input: oklch(0.922 0.005 285);
-  --ring: oklch(0.51 0.18 264);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.22 0.005 285);
+  --input: oklch(0.22 0.005 285);
+  --ring: oklch(0.55 0.20 264);
   --radius: 0.625rem;
-
-  --sidebar-background: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.45 0.015 285);
-  --sidebar-primary: oklch(0.51 0.18 264);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.96 0.005 285);
-  --sidebar-accent-foreground: oklch(0.2 0.015 285);
-  --sidebar-border: oklch(0.922 0.005 285);
-  --sidebar-ring: oklch(0.51 0.18 264);
 
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.714);
@@ -62,15 +53,6 @@
   --color-ring: var(--ring);
   --radius: var(--radius);
 
-  --color-sidebar-background: var(--sidebar-background);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -85,5 +67,77 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: Inter, system-ui, -apple-system, sans-serif;
+    background-image:
+      linear-gradient(oklch(0.18 0.005 285 / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.18 0.005 285 / 0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
   }
+}
+
+/* Indeterminate progress bar animation */
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* BentoCard glow effects */
+.bento-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  position: relative;
+  transform: translateZ(0);
+}
+
+.bento-card::before,
+.bento-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Inner glow */
+.bento-card::before {
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    oklch(0.55 0.20 264 / 0.07),
+    transparent 40%
+  );
+  z-index: 1;
+}
+
+/* Border glow */
+.bento-card::after {
+  background: radial-gradient(
+    400px circle at var(--mouse-x) var(--mouse-y),
+    oklch(0.55 0.20 264 / 0.25),
+    transparent 40%
+  );
+  z-index: 1;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.bento-card:hover::before,
+.bento-card:hover::after {
+  opacity: 1;
 }

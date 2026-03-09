@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Loader2, XCircle } from "lucide-react";
+import { Loader2, XCircle, Upload } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/hooks/use-i18n";
@@ -10,35 +10,20 @@ interface ProgressPanelProps {
   onCancel: () => void;
 }
 
-const stageNames: Record<string, { zh: string; en: string }> = {
-  "Parse PDF and Create IR": { zh: "解析 PDF", en: "Parsing PDF" },
-  "Detect scanned file": { zh: "检测扫描文件", en: "Detecting scanned file" },
-  "Parse page layout": { zh: "解析页面布局", en: "Parsing page layout" },
-  "Parse tables": { zh: "解析表格", en: "Parsing tables" },
-  "Parse paragraphs": { zh: "解析段落", en: "Parsing paragraphs" },
-  "Parse formulas and styles": { zh: "解析公式和样式", en: "Parsing formulas & styles" },
-  "Extract terms": { zh: "提取术语", en: "Extracting terms" },
-  "Translate paragraphs": { zh: "翻译段落", en: "Translating paragraphs" },
-  "Typesetting": { zh: "排版", en: "Typesetting" },
-  "Add fonts": { zh: "添加字体", en: "Adding fonts" },
-  "Generate drawing instructions": { zh: "生成绘制指令", en: "Generating drawings" },
-  "Subset font": { zh: "子集化字体", en: "Subsetting fonts" },
-  "Save PDF": { zh: "保存 PDF", en: "Saving PDF" },
-};
-
 export function ProgressPanel({ task, onCancel }: ProgressPanelProps) {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
 
   if (task.status !== "uploading" && task.status !== "translating") {
     return null;
   }
 
-  const stageName = stageNames[task.stage];
-  const displayStage = stageName
-    ? locale === "zh"
-      ? stageName.zh
-      : stageName.en
-    : task.stage;
+  const isUploading = task.status === "uploading";
+
+  const displayStage = task.stage
+    ? t(`stages.${task.stage}`) !== `stages.${task.stage}`
+      ? t(`stages.${task.stage}`)
+      : task.stage
+    : "";
 
   const progressValue = Math.min(Math.max(task.progress, 0), 100);
 
@@ -46,54 +31,66 @@ export function ProgressPanel({ task, onCancel }: ProgressPanelProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="rounded-xl border border-blue-100 bg-blue-50/30 p-6"
+      className="rounded-xl border border-primary/20 bg-primary/5 p-6"
     >
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
-            <h3 className="text-sm font-semibold text-slate-900">
-              {t("translate.progress")}
+            {isUploading ? (
+              <Upload className="h-4 w-4 animate-pulse text-primary" />
+            ) : (
+              <Loader2 className="h-4 w-4 animate-spin text-primary" />
+            )}
+            <h3 className="text-sm font-semibold text-foreground">
+              {isUploading ? t("translate.uploading") : t("translate.progress")}
             </h3>
           </div>
           <Button
             variant="ghost"
             size="sm"
             onClick={onCancel}
-            className="gap-1.5 text-slate-500 hover:text-red-600"
+            className="gap-1.5 text-muted-foreground hover:text-destructive"
           >
             <XCircle className="h-4 w-4" />
             {t("translate.cancel")}
           </Button>
         </div>
 
-        <div className="space-y-2">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-slate-600">
-              {t("translate.overall")}: {progressValue.toFixed(1)}%
-            </span>
-            {task.totalParts > 1 && (
-              <span className="text-xs text-slate-400">
-                {t("translate.part")
-                  .replace("{current}", String(task.partIndex))
-                  .replace("{total}", String(task.totalParts))}
-              </span>
-            )}
+        {isUploading ? (
+          <div className="space-y-2">
+            <Progress className="h-2 [&>div]:animate-[indeterminate_1.5s_ease-in-out_infinite]" />
           </div>
-          <Progress value={progressValue} className="h-2" />
-        </div>
+        ) : (
+          <>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-foreground">
+                  {t("translate.overall")}: {progressValue.toFixed(1)}%
+                </span>
+                {task.totalParts > 1 && (
+                  <span className="text-xs text-muted-foreground">
+                    {t("translate.part")
+                      .replace("{current}", String(task.partIndex))
+                      .replace("{total}", String(task.totalParts))}
+                  </span>
+                )}
+              </div>
+              <Progress value={progressValue} className="h-2" />
+            </div>
 
-        {displayStage && (
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span>
-              {t("translate.stage")}: {displayStage}
-            </span>
-            {task.stageTotal > 0 && (
-              <span>
-                {task.stageCurrent} / {task.stageTotal}
-              </span>
+            {displayStage && (
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <span>
+                  {t("translate.stage")}: {displayStage}
+                </span>
+                {task.stageTotal > 0 && (
+                  <span>
+                    {task.stageCurrent} / {task.stageTotal}
+                  </span>
+                )}
+              </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </motion.div>

@@ -88,6 +88,20 @@ export interface ModelPreset {
   apiKeyOptional?: boolean;
 }
 
+/** Per-preset saved fields — each preset independently stores its own API config. */
+export interface PresetSavedFields {
+  openaiModel: string;
+  openaiBaseUrl: string;
+  openaiApiKey: string;
+  customSystemPrompt: string;
+  enableJsonModeIfRequested: boolean;
+  sendDashscopeHeader: boolean;
+  noSendTemperature: boolean;
+  openaiReasoning: string;
+}
+
+export type PresetStorageMap = Record<string, PresetSavedFields>;
+
 export interface LanguageOption {
   code: string;
   nameEn: string;
@@ -99,6 +113,16 @@ export interface UploadedFile {
   name: string;
   size: number;
   type: string;
+}
+
+export interface ResourceUsage {
+  totalSeconds: number | null;
+  peakMemoryUsage: number | null;
+  characterCount: number | null;
+  tokenCount: number | null;
+  promptTokenCount: number | null;
+  completionTokenCount: number | null;
+  cacheHitTokenCount: number | null;
 }
 
 export interface TranslationTask {
@@ -120,11 +144,50 @@ export interface TranslationResult {
   monoPdfUrl: string | null;
   glossaryUrl: string | null;
   totalSeconds: number;
+  resourceUsage: ResourceUsage | null;
+}
+
+export interface TokenEstimate {
+  pageCount: number;
+  characterCount: number;
+  estimatedTokens: number;
+  model: string;
+  estimatedCostUsd: number | null;
+}
+
+export interface TaskHistoryEntry {
+  taskId: string;
+  filename: string;
+  model: string;
+  langIn: string;
+  langOut: string;
+  status: 'completed' | 'failed' | 'cancelled';
+  startedAt: string;
+  completedAt: string;
+  totalSeconds: number | null;
+  pageCount: number | null;
+  tokenCount: number | null;
+  promptTokenCount: number | null;
+  completionTokenCount: number | null;
+  cacheHitTokenCount: number | null;
+  peakMemoryUsage: number | null;
+  characterCount: number | null;
+  error: string | null;
+  dualPdfUrl: string | null;
+  monoPdfUrl: string | null;
+  glossaryUrl: string | null;
+}
+
+export interface HistoryListResponse {
+  items: TaskHistoryEntry[];
+  total: number;
+  offset: number;
+  limit: number;
 }
 
 export type ConfigAction =
   | { type: 'SET_FIELD'; field: keyof BabelDocConfig; value: BabelDocConfig[keyof BabelDocConfig] }
-  | { type: 'APPLY_PRESET'; preset: ModelPreset }
+  | { type: 'SWITCH_PRESET'; presetId: string }
   | { type: 'APPLY_COMPATIBILITY' }
   | { type: 'APPLY_OCR_WORKAROUND' }
   | { type: 'RESET' }

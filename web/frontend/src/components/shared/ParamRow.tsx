@@ -24,11 +24,11 @@ export function ParamRow({
   return (
     <div className="flex items-center justify-between gap-4 py-2">
       <div className="flex items-center gap-2 shrink-0">
-        <Label className="text-sm text-slate-700">{label}</Label>
+        <Label className="text-sm text-foreground">{label}</Label>
         {tooltip && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <HelpCircle className="h-3.5 w-3.5 text-slate-300 cursor-help" />
+              <HelpCircle className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
             </TooltipTrigger>
             <TooltipContent side="top" className="max-w-xs text-xs">
               {tooltip}
@@ -36,7 +36,7 @@ export function ParamRow({
           </Tooltip>
         )}
         {overridden && (
-          <span className="text-xs text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded">
+          <span className="text-xs text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded">
             {overrideLabel ?? "Overridden"}
           </span>
         )}

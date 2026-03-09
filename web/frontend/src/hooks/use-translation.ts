@@ -3,6 +3,7 @@ import type {
   BabelDocConfig,
   TranslationTask,
   TranslationResult,
+  ResourceUsage,
 } from "@/types/config";
 import {
   uploadFile,
@@ -71,11 +72,26 @@ export function useTranslationTask() {
               totalParts: data.totalParts ?? 1,
             }));
           } else if (data.type === "finish") {
+            let resourceUsage: ResourceUsage | null = null;
+            if (data.result?.resource_usage) {
+              const ru = data.result.resource_usage;
+              resourceUsage = {
+                totalSeconds: ru.total_seconds ?? null,
+                peakMemoryUsage: ru.peak_memory_usage ?? null,
+                characterCount: ru.character_count ?? null,
+                tokenCount: ru.token_count ?? null,
+                promptTokenCount: ru.prompt_token_count ?? null,
+                completionTokenCount: ru.completion_token_count ?? null,
+                cacheHitTokenCount: ru.cache_hit_token_count ?? null,
+              };
+            }
+
             const result: TranslationResult = {
               dualPdfUrl: data.result?.dual_pdf ?? null,
               monoPdfUrl: data.result?.mono_pdf ?? null,
               glossaryUrl: data.result?.glossary ?? null,
               totalSeconds: data.result?.total_seconds ?? 0,
+              resourceUsage,
             };
             setTask((t) => ({
               ...t,

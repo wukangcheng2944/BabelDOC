@@ -1,3 +1,4 @@
+# 前端 Dockerfile - 多阶段构建
 FROM node:22-alpine AS build
 
 WORKDIR /app

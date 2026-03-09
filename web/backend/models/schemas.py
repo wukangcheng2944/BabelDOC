@@ -105,8 +105,65 @@ class TaskStatusResponse(BaseModel):
     result: TranslateResultResponse | None = None
 
 
+class ResourceUsageResponse(BaseModel):
+    total_seconds: float | None = None
+    peak_memory_usage: float | None = None
+    character_count: int | None = None
+    token_count: int | None = None
+    prompt_token_count: int | None = None
+    completion_token_count: int | None = None
+    cache_hit_token_count: int | None = None
+
+
 class TranslateResultResponse(BaseModel):
     dual_pdf: str | None = None
     mono_pdf: str | None = None
     glossary: str | None = None
     total_seconds: float = 0.0
+    resource_usage: ResourceUsageResponse | None = None
+
+
+# Token estimation
+class EstimateRequest(BaseModel):
+    file_id: str
+    model: str
+    pages: str = ""
+
+
+class EstimateResponse(BaseModel):
+    page_count: int
+    character_count: int
+    estimated_tokens: int
+    model: str
+    estimated_cost_usd: float | None = None
+
+
+# Task history
+class TaskHistoryEntry(BaseModel):
+    task_id: str
+    filename: str = ""
+    model: str = ""
+    lang_in: str = ""
+    lang_out: str = ""
+    status: str = ""
+    started_at: str = ""
+    completed_at: str = ""
+    total_seconds: float | None = None
+    page_count: int | None = None
+    token_count: int | None = None
+    prompt_token_count: int | None = None
+    completion_token_count: int | None = None
+    cache_hit_token_count: int | None = None
+    peak_memory_usage: float | None = None
+    character_count: int | None = None
+    error: str | None = None
+    dual_pdf_url: str | None = None
+    mono_pdf_url: str | None = None
+    glossary_url: str | None = None
+
+
+class HistoryListResponse(BaseModel):
+    items: list[TaskHistoryEntry] = Field(default_factory=list)
+    total: int = 0
+    offset: int = 0
+    limit: int = 20

@@ -14,6 +14,7 @@ from services.translation_service import (
 )
 
 router = APIRouter()
+ws_router = APIRouter()
 
 
 @router.post("/translate", response_model=TranslateResponse)
@@ -38,7 +39,7 @@ async def check_status(task_id: str):
     return status
 
 
-@router.websocket("/ws/translate/{task_id}")
+@ws_router.websocket("/ws/translate/{task_id}")
 async def websocket_progress(websocket: WebSocket, task_id: str):
     """WebSocket endpoint for real-time translation progress."""
     await websocket.accept()

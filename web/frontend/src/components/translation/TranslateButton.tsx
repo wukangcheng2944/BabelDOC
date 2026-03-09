@@ -7,26 +7,28 @@ interface TranslateButtonProps {
   onClick: () => void;
   disabled: boolean;
   loading: boolean;
+  hint?: string;
 }
 
 export function TranslateButton({
   onClick,
   disabled,
   loading,
+  hint,
 }: TranslateButtonProps) {
   const { t } = useI18n();
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.7 }}
+      transition={{ duration: 0.3 }}
     >
       <Button
         onClick={onClick}
         disabled={disabled || loading}
         size="lg"
-        className="w-full gap-2 bg-blue-600 text-white hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 h-12 text-base font-medium"
+        className="w-full gap-2 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20 transition-all duration-200 h-12 text-base font-medium"
       >
         {loading ? (
           <>
@@ -40,6 +42,11 @@ export function TranslateButton({
           </>
         )}
       </Button>
+      {hint && !loading && (
+        <p className="mt-2 text-center text-xs text-muted-foreground">
+          {hint}
+        </p>
+      )}
     </motion.div>
   );
 }

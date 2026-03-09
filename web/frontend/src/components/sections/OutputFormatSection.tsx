@@ -1,5 +1,5 @@
 import { FileOutput } from "lucide-react";
-import { SectionCard } from "@/components/shared/SectionCard";
+import { BentoCard } from "@/components/shared/BentoCard";
 import { ParamRow } from "@/components/shared/ParamRow";
 import { ParamSwitch } from "@/components/shared/ParamSwitch";
 import {
@@ -18,14 +18,12 @@ export function OutputFormatSection() {
   const { config, setField } = useConfig();
 
   return (
-    <SectionCard
-      id="output"
-      icon={FileOutput}
-      title={t("output.title")}
-      defaultOpen={false}
-      delay={0.3}
-    >
-      <div className="space-y-4">
+    <BentoCard>
+      <div className="flex items-center gap-2 mb-3">
+        <FileOutput className="h-4 w-4 text-muted-foreground" />
+        <h3 className="text-sm font-semibold">{t("output.title")}</h3>
+      </div>
+      <div className="space-y-3">
         <ParamRow label={t("output.mode")}>
           <Select
             value={config.outputMode}
@@ -117,6 +115,6 @@ export function OutputFormatSection() {
           </Select>
         </ParamRow>
       </div>
-    </SectionCard>
+    </BentoCard>
   );
 }

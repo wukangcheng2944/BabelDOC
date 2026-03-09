@@ -3,6 +3,10 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        - HTTP_PROXY=http://host.docker.internal:7890
+        - HTTPS_PROXY=http://host.docker.internal:7890
+        - NO_PROXY=localhost,127.0.0.1
     ports:
       - "3001:80"
     depends_on:
@@ -13,6 +17,10 @@ services:
     build:
       context: ..
       dockerfile: web/backend/Dockerfile
+      args:
+        - HTTP_PROXY=http://host.docker.internal:7890
+        - HTTPS_PROXY=http://host.docker.internal:7890
+        - NO_PROXY=localhost,127.0.0.1
     expose:
       - "8000"
     volumes:

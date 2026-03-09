@@ -31,7 +31,7 @@ export function PasswordInput({
         type="button"
         variant="ghost"
         size="icon"
-        className="absolute right-0 top-0 h-full px-3 text-slate-400 hover:text-slate-600"
+        className="absolute right-0 top-0 h-full px-3 text-muted-foreground hover:text-foreground"
         onClick={() => setShow(!show)}
       >
         {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}

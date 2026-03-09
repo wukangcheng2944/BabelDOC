@@ -5,10 +5,17 @@ import shutil
 import traceback
 import uuid
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from models.schemas import TaskStatusResponse, TranslateConfig, TranslateResultResponse
+from models.schemas import (
+    TaskStatusResponse,
+    TranslateConfig,
+    TranslateResultResponse,
+    ResourceUsageResponse,
+    TaskHistoryEntry,
+)
 from storage.manager import get_glossary_path, get_result_dir, get_upload_path
 
 
@@ -29,6 +36,12 @@ class TranslationTask:
     result: TranslateResultResponse | None = None
     cancel_event: asyncio.Event = field(default_factory=asyncio.Event)
     websocket_connections: list[Any] = field(default_factory=list)
+    # Metadata for history
+    filename: str = ""
+    model: str = ""
+    lang_in: str = ""
+    lang_out: str = ""
+    started_at: str = ""
 
 
 # In-memory task registry
@@ -38,7 +51,10 @@ _tasks: dict[str, TranslationTask] = {}
 def create_task() -> TranslationTask:
     """Create a new translation task."""
     task_id = uuid.uuid4().hex[:12]
-    task = TranslationTask(task_id=task_id)
+    task = TranslationTask(
+        task_id=task_id,
+        started_at=datetime.now(timezone.utc).isoformat(),
+    )
     _tasks[task_id] = task
     return task
 
@@ -79,6 +95,41 @@ async def broadcast_progress(task: TranslationTask, data: dict):
         task.websocket_connections.remove(ws)
 
 
+def _write_history(task: TranslationTask):
+    """Write completed/failed/cancelled task to history."""
+    try:
+        from storage.history import append_history
+
+        resource = task.result.resource_usage if task.result else None
+
+        entry = TaskHistoryEntry(
+            task_id=task.task_id,
+            filename=task.filename,
+            model=task.model,
+            lang_in=task.lang_in,
+            lang_out=task.lang_out,
+            status=task.status,
+            started_at=task.started_at,
+            completed_at=datetime.now(timezone.utc).isoformat(),
+            total_seconds=resource.total_seconds if resource else (task.result.total_seconds if task.result else None),
+            page_count=None,
+            token_count=resource.token_count if resource else None,
+            prompt_token_count=resource.prompt_token_count if resource else None,
+            completion_token_count=resource.completion_token_count if resource else None,
+            cache_hit_token_count=resource.cache_hit_token_count if resource else None,
+            peak_memory_usage=resource.peak_memory_usage if resource else None,
+            character_count=resource.character_count if resource else None,
+            error=task.error,
+            dual_pdf_url=task.result.dual_pdf if task.result else None,
+            mono_pdf_url=task.result.mono_pdf if task.result else None,
+            glossary_url=task.result.glossary if task.result else None,
+        )
+        append_history(entry)
+    except Exception:
+        # Don't let history writing break the main flow
+        pass
+
+
 async def run_translation(
     task: TranslationTask,
     file_id: str,
@@ -86,6 +137,16 @@ async def run_translation(
     glossary_ids: list[str],
 ):
     """Run the translation using BabelDOC's async_translate."""
+    # Store metadata for history
+    task.model = config.openai_model
+    task.lang_in = config.lang_in
+    task.lang_out = config.lang_out
+
+    # Try to get filename from storage
+    input_path = get_upload_path(file_id)
+    if input_path:
+        task.filename = input_path.name
+
     try:
         task.status = "translating"
 
@@ -100,7 +161,6 @@ async def run_translation(
         from babeldoc.translator.translator import OpenAITranslator
 
         # Get uploaded file
-        input_path = get_upload_path(file_id)
         if not input_path:
             raise FileNotFoundError(f"Uploaded file not found: {file_id}")
 
@@ -262,8 +322,23 @@ async def run_translation(
 
             elif event_type == "finish":
                 translate_result = event.get("translate_result")
+
+                # Extract resource usage from translate_result
+                resource_usage = None
+                if translate_result:
+                    resource_usage = ResourceUsageResponse(
+                        total_seconds=getattr(translate_result, "total_seconds", None),
+                        peak_memory_usage=getattr(translate_result, "peak_memory_usage", None),
+                        character_count=getattr(translate_result, "total_valid_character_count", None),
+                        token_count=getattr(translate_result, "total_valid_text_token_count", None),
+                        prompt_token_count=getattr(translate_result, "prompt_token_count", None),
+                        completion_token_count=getattr(translate_result, "completion_token_count", None),
+                        cache_hit_token_count=getattr(translate_result, "cache_hit_prompt_token_count", None),
+                    )
+
                 result = TranslateResultResponse(
                     total_seconds=translate_result.total_seconds if translate_result else 0.0,
+                    resource_usage=resource_usage,
                 )
 
                 # Copy result files to result_dir and set URLs
@@ -295,6 +370,9 @@ async def run_translation(
                     "result": result.model_dump(),
                 })
 
+                # Write to history
+                _write_history(task)
+
             elif event_type == "error":
                 task.error = event.get("error", "Unknown error")
                 task.status = "failed"
@@ -304,12 +382,16 @@ async def run_translation(
                     "message": task.error,
                 })
 
+                # Write to history
+                _write_history(task)
+
         if task.cancel_event.is_set():
             task.status = "cancelled"
             await broadcast_progress(task, {
                 "type": "error",
                 "message": "Translation cancelled by user",
             })
+            _write_history(task)
 
     except Exception as e:
         task.error = f"{type(e).__name__}: {str(e)}\n{traceback.format_exc()}"
@@ -318,3 +400,4 @@ async def run_translation(
             "type": "error",
             "message": str(e),
         })
+        _write_history(task)

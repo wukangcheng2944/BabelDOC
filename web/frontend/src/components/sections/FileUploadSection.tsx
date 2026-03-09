@@ -1,5 +1,5 @@
 import { FileText, ArrowRight } from "lucide-react";
-import { SectionCard } from "@/components/shared/SectionCard";
+import { BentoCard } from "@/components/shared/BentoCard";
 import { FileDropZone } from "@/components/shared/FileDropZone";
 import { LanguageCombobox } from "@/components/shared/LanguageCombobox";
 import { Input } from "@/components/ui/input";
@@ -22,13 +22,11 @@ export function FileUploadSection({
   const { config, setField } = useConfig();
 
   return (
-    <SectionCard
-      id="file"
-      icon={FileText}
-      title={t("file.title")}
-      defaultOpen={true}
-      delay={0}
-    >
+    <BentoCard>
+      <div className="flex items-center gap-2 mb-4">
+        <FileText className="h-4 w-4 text-muted-foreground" />
+        <h3 className="text-sm font-semibold">{t("file.title")}</h3>
+      </div>
       <div className="space-y-5">
         <FileDropZone
           accept=".pdf"
@@ -41,15 +39,15 @@ export function FileUploadSection({
 
         <div className="flex items-center gap-3">
           <div className="flex-1 space-y-1.5">
-            <Label className="text-xs text-slate-500">{t("file.langIn")}</Label>
+            <Label className="text-xs text-muted-foreground">{t("file.langIn")}</Label>
             <LanguageCombobox
               value={config.langIn}
               onChange={(v) => setField("langIn", v)}
             />
           </div>
-          <ArrowRight className="mt-5 h-4 w-4 shrink-0 text-slate-300" />
+          <ArrowRight className="mt-5 h-4 w-4 shrink-0 text-muted-foreground/50" />
           <div className="flex-1 space-y-1.5">
-            <Label className="text-xs text-slate-500">{t("file.langOut")}</Label>
+            <Label className="text-xs text-muted-foreground">{t("file.langOut")}</Label>
             <LanguageCombobox
               value={config.langOut}
               onChange={(v) => setField("langOut", v)}
@@ -58,7 +56,7 @@ export function FileUploadSection({
         </div>
 
         <div className="space-y-1.5">
-          <Label className="text-xs text-slate-500">{t("file.pages")}</Label>
+          <Label className="text-xs text-muted-foreground">{t("file.pages")}</Label>
           <Input
             value={config.pages}
             onChange={(e) => setField("pages", e.target.value)}
@@ -67,6 +65,6 @@ export function FileUploadSection({
           />
         </div>
       </div>
-    </SectionCard>
+    </BentoCard>
   );
 }
