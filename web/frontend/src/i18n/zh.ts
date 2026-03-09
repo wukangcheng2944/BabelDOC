@@ -1,11 +1,14 @@
 export const zh = {
   app: {
-    title: 'BabelDOC Web',
+    title: 'K3 DocTranslate',
     subtitle: 'PDF 科学论文翻译平台',
   },
   tabs: {
     translate: '翻译',
     history: '历史',
+  },
+  task: {
+    title: '任务提交',
   },
   nav: {
     file: '文件',
@@ -167,9 +170,9 @@ export const zh = {
     debug: '调试模式',
     debugDesc: '启用调试日志',
     skipTranslation: '跳过翻译',
-    skipTranslationDesc: '仅解析和生成 PDF，不进行翻译',
+    skipTranslationDesc: '完整解析 PDF（布局/表格/OCR），但跳过翻译步骤',
     onlyParseGenerate: '仅解析生成',
-    onlyParseGenerateDesc: '仅解析 PDF 并生成输出，不翻译',
+    onlyParseGenerateDesc: '跳过所有处理阶段，仅解析 PDF 结构并直接生成输出',
     ignoreCache: '忽略缓存',
     ignoreCacheDesc: '忽略翻译缓存',
     translateTable: '翻译表格文本',

@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
@@ -6,22 +6,20 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { TabBar, type TabId } from "@/components/layout/TabBar";
 import { BentoGrid } from "@/components/layout/BentoGrid";
-import { FileUploadSection } from "@/components/sections/FileUploadSection";
 import { TranslationServiceSection } from "@/components/sections/TranslationServiceSection";
 import { TermExtractionSection } from "@/components/sections/TermExtractionSection";
+import { TermModelConfigCard } from "@/components/sections/TermModelConfigCard";
 import { GlossarySection } from "@/components/sections/GlossarySection";
 import { OutputFormatSection } from "@/components/sections/OutputFormatSection";
 import { AdvancedSettingsCard } from "@/components/sections/AdvancedSettingsCard";
 import { PerformanceSection } from "@/components/sections/PerformanceSection";
-import { TranslateButton } from "@/components/translation/TranslateButton";
-import { ProgressPanel } from "@/components/translation/ProgressPanel";
-import { ResultPanel } from "@/components/translation/ResultPanel";
-import { TokenEstimateCard } from "@/components/translation/TokenEstimateCard";
+import { TaskSubmissionCard } from "@/components/translation/TaskSubmissionCard";
 import { HistoryTab } from "@/components/history/HistoryTab";
 import { I18nContext, createI18nValue } from "@/hooks/use-i18n";
 import { ConfigContext, useConfigReducer } from "@/hooks/use-config";
 import { useTranslationTask } from "@/hooks/use-translation";
 import { validateConfig } from "@/lib/validation";
+import { ThemeContext, type Theme, applyTheme, getInitialTheme } from "@/hooks/use-theme";
 import type { Locale } from "@/i18n";
 
 interface GlossaryFile {
@@ -31,6 +29,21 @@ interface GlossaryFile {
 }
 
 export default function App() {
+  // Theme
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
+  const setTheme = useCallback((t: Theme) => {
+    setThemeState(t);
+    applyTheme(t);
+  }, []);
+  const toggleTheme = useCallback(() => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  }, [theme, setTheme]);
+
+  // Apply theme on mount
+  useEffect(() => {
+    applyTheme(theme);
+  }, []);
+
   // i18n
   const [locale, setLocale] = useState<Locale>("zh");
   const i18nValue = createI18nValue(locale, setLocale);
@@ -96,7 +109,7 @@ export default function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "babeldoc-config.json";
+    a.download = "k3-doctranslate-config.json";
     a.click();
     URL.revokeObjectURL(url);
     toast.success(i18nValue.t("header.exportSuccess"));
@@ -126,6 +139,7 @@ export default function App() {
   }, [dispatch, i18nValue]);
 
   return (
+    <ThemeContext value={{ theme, setTheme, toggleTheme }}>
     <I18nContext value={i18nValue}>
       <ConfigContext
         value={{ config, dispatch, setField, activePresetId, presetStorage }}
@@ -143,25 +157,28 @@ export default function App() {
               {activeTab === "translate" ? (
                 <div className="mx-auto max-w-7xl">
                   <BentoGrid>
-                    {/* Row 1: File Upload (2col×2row) + Translation Service (3col×2row) + Token Estimate (1col×2row) */}
-                    <div className="md:col-span-1 lg:col-span-2 lg:row-span-2">
-                      <FileUploadSection
+                    {/* Row 1: Task Submission (2col) + Translation Service (4col) */}
+                    <div className="md:col-span-1 lg:col-span-2">
+                      <TaskSubmissionCard
                         file={file}
                         onFileSelect={handleFileSelect}
                         onFileRemove={handleFileRemove}
+                        onTranslate={handleTranslate}
+                        translateDisabled={!file || isTranslating}
+                        translateLoading={isTranslating}
+                        translateHint={translateHint}
+                        task={task}
+                        onCancel={cancelTranslation}
+                        onReset={reset}
                       />
                     </div>
 
-                    <div className="md:col-span-2 lg:col-span-3 lg:row-span-2">
+                    <div className="md:col-span-2 lg:col-span-4">
                       <TranslationServiceSection />
                     </div>
 
-                    <div className="md:col-span-1 lg:col-span-1 lg:row-span-2">
-                      <TokenEstimateCard file={file} />
-                    </div>
-
-                    {/* Row 2: Term Extraction (1col) + Glossary (1col) + Output Format (2col) + Action Zone (2col) */}
-                    <div className="md:col-span-1 lg:col-span-1">
+                    {/* Row 2: Term Extraction (2col) + Glossary (1col) + Output Format (3col) */}
+                    <div className="md:col-span-1 lg:col-span-2">
                       <TermExtractionSection />
                     </div>
 
@@ -173,29 +190,23 @@ export default function App() {
                       />
                     </div>
 
-                    <div className="md:col-span-1 lg:col-span-2">
+                    <div className="md:col-span-1 lg:col-span-3">
                       <OutputFormatSection />
                     </div>
 
-                    <div className="md:col-span-3 lg:col-span-2">
-                      <div className="space-y-4">
-                        <TranslateButton
-                          onClick={handleTranslate}
-                          disabled={!file || isTranslating}
-                          loading={isTranslating}
-                          hint={translateHint}
-                        />
-                        <ProgressPanel task={task} onCancel={cancelTranslation} />
-                        <ResultPanel task={task} onReset={reset} />
+                    {/* Conditional: Independent term model config (3col, under Term + Glossary) */}
+                    {config.useIndependentTermModel && (
+                      <div className="md:col-span-3 lg:col-span-3">
+                        <TermModelConfigCard />
                       </div>
-                    </div>
+                    )}
 
                     {/* Row 3: Advanced Settings (4col) + Performance (2col) */}
-                    <div className="md:col-span-3 lg:col-span-4">
+                    <div className="md:col-span-2 lg:col-span-4">
                       <AdvancedSettingsCard />
                     </div>
 
-                    <div className="md:col-span-3 lg:col-span-2">
+                    <div className="md:col-span-1 lg:col-span-2">
                       <PerformanceSection />
                     </div>
                   </BentoGrid>
@@ -210,9 +221,10 @@ export default function App() {
             <Footer />
           </div>
 
-          <Toaster position="top-right" />
+          <Toaster position="top-right" theme={theme} />
         </TooltipProvider>
       </ConfigContext>
     </I18nContext>
+    </ThemeContext>
   );
 }

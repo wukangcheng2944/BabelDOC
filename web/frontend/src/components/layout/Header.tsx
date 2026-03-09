@@ -1,4 +1,4 @@
-import { Globe, Github, Upload, Download } from "lucide-react";
+import { Globe, Github, Upload, Download, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useI18n } from "@/hooks/use-i18n";
+import { useTheme } from "@/hooks/use-theme";
 
 interface HeaderProps {
   onImport?: () => void;
@@ -15,17 +16,16 @@ interface HeaderProps {
 
 export function Header({ onImport, onExport }: HeaderProps) {
   const { locale, setLocale, t } = useI18n();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
       <div className="flex h-14 items-center justify-between px-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm">
-            B
-          </div>
+          <img src="/logo.svg" alt="K3 DocTranslate" className="h-8 w-8 rounded-lg" />
           <div>
             <h1 className="text-base font-semibold tracking-tight text-foreground">
-              BabelDOC Web
+              K3 DocTranslate
             </h1>
           </div>
         </div>
@@ -66,6 +66,19 @@ export function Header({ onImport, onExport }: HeaderProps) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-muted-foreground hover:text-foreground"
+            onClick={toggleTheme}
+          >
+            {theme === "dark" ? (
+              <Sun className="h-4 w-4" />
+            ) : (
+              <Moon className="h-4 w-4" />
+            )}
+          </Button>
 
           <Button
             variant="ghost"

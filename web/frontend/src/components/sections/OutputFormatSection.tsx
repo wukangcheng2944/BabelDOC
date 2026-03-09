@@ -19,11 +19,11 @@ export function OutputFormatSection() {
 
   return (
     <BentoCard>
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex items-center gap-2 mb-2">
         <FileOutput className="h-4 w-4 text-muted-foreground" />
         <h3 className="text-sm font-semibold">{t("output.title")}</h3>
       </div>
-      <div className="space-y-3">
+      <div className="space-y-1">
         <ParamRow label={t("output.mode")}>
           <Select
             value={config.outputMode}

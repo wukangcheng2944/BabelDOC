@@ -22,9 +22,9 @@ export function ParamRow({
   children,
 }: ParamRowProps) {
   return (
-    <div className="flex items-center justify-between gap-4 py-2">
-      <div className="flex items-center gap-2 shrink-0">
-        <Label className="text-sm text-foreground">{label}</Label>
+    <div className="flex items-start justify-between gap-3 py-1.5">
+      <div className="flex items-start gap-2 min-w-0 pt-0.5">
+        <Label className="text-sm text-foreground leading-snug">{label}</Label>
         {tooltip && (
           <Tooltip>
             <TooltipTrigger asChild>
@@ -41,7 +41,7 @@ export function ParamRow({
           </span>
         )}
       </div>
-      <div className="flex items-center gap-2">{children}</div>
+      <div className="flex shrink-0 items-center gap-2">{children}</div>
     </div>
   );
 }

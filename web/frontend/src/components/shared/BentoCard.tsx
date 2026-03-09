@@ -27,7 +27,7 @@ export function BentoCard({ children, className }: BentoCardProps) {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       className={cn(
-        "bento-card rounded-xl border border-border/50 bg-card p-5 transform-gpu",
+        "bento-card rounded-xl border border-border/50 bg-card p-4 transform-gpu",
         className
       )}
     >

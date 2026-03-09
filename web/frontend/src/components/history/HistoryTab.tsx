@@ -130,16 +130,16 @@ export function HistoryTab() {
                       <td className="py-3 pr-4">
                         <StatusBadge status={entry.status} />
                       </td>
-                      <td className="py-3 pr-4 text-muted-foreground font-mono text-xs">
+                      <td className="py-3 pr-4 text-muted-foreground text-xs">
                         {entry.model}
                       </td>
                       <td className="py-3 pr-4 text-muted-foreground text-xs">
                         {entry.langIn} → {entry.langOut}
                       </td>
-                      <td className="py-3 pr-4 text-right font-mono text-xs">
+                      <td className="py-3 pr-4 text-right text-xs tabular-nums">
                         {formatTokenK(entry.tokenCount)}
                       </td>
-                      <td className="py-3 pr-4 text-right font-mono text-xs">
+                      <td className="py-3 pr-4 text-right text-xs tabular-nums">
                         {formatDuration(entry.totalSeconds)}
                       </td>
                       <td className="py-3 text-right">
@@ -222,7 +222,7 @@ export function HistoryTab() {
                   <p className="text-sm font-medium truncate">{entry.filename}</p>
                   <div className="flex items-center gap-2">
                     <StatusBadge status={entry.status} />
-                    <span className="text-xs text-muted-foreground font-mono">{entry.model}</span>
+                    <span className="text-xs text-muted-foreground">{entry.model}</span>
                   </div>
                 </div>
                 <Button

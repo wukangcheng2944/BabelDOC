@@ -56,12 +56,12 @@ export function GlossarySection({
   };
 
   return (
-    <BentoCard>
-      <div className="flex items-center gap-2 mb-3">
+    <BentoCard className="h-full">
+      <div className="flex items-center gap-2 mb-2">
         <Library className="h-4 w-4 text-muted-foreground" />
         <h3 className="text-sm font-semibold">{t("glossary.title")}</h3>
       </div>
-      <div className="space-y-3">
+      <div className="space-y-2">
         <div>
           <input
             ref={inputRef}

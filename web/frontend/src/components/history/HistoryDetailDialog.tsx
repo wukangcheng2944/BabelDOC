@@ -52,7 +52,7 @@ export function HistoryDetailDialog({
             </div>
             <div>
               <p className="text-xs text-muted-foreground">{t("history.detail.model")}</p>
-              <p className="font-mono text-xs">{entry.model}</p>
+              <p className="text-xs">{entry.model}</p>
             </div>
             <div>
               <p className="text-xs text-muted-foreground">{t("history.detail.language")}</p>
@@ -74,13 +74,13 @@ export function HistoryDetailDialog({
                 {entry.totalSeconds != null && (
                   <div className="rounded-lg bg-muted/50 p-2">
                     <p className="text-[10px] text-muted-foreground">{t("resource.duration")}</p>
-                    <p className="text-sm font-mono font-medium">{entry.totalSeconds.toFixed(1)}s</p>
+                    <p className="text-sm font-medium tabular-nums">{entry.totalSeconds.toFixed(1)}s</p>
                   </div>
                 )}
                 {entry.peakMemoryUsage != null && (
                   <div className="rounded-lg bg-muted/50 p-2">
                     <p className="text-[10px] text-muted-foreground">{t("resource.peakMemory")}</p>
-                    <p className="text-sm font-mono font-medium">
+                    <p className="text-sm font-medium tabular-nums">
                       {(entry.peakMemoryUsage / (1024 * 1024 * 1024)).toFixed(2)} GB
                     </p>
                   </div>
@@ -88,25 +88,25 @@ export function HistoryDetailDialog({
                 {entry.characterCount != null && (
                   <div className="rounded-lg bg-muted/50 p-2">
                     <p className="text-[10px] text-muted-foreground">{t("resource.characters")}</p>
-                    <p className="text-sm font-mono font-medium">{entry.characterCount.toLocaleString()}</p>
+                    <p className="text-sm font-medium tabular-nums">{entry.characterCount.toLocaleString()}</p>
                   </div>
                 )}
                 {entry.promptTokenCount != null && (
                   <div className="rounded-lg bg-muted/50 p-2">
                     <p className="text-[10px] text-muted-foreground">{t("resource.promptTokens")}</p>
-                    <p className="text-sm font-mono font-medium">{formatTokenK(entry.promptTokenCount)}</p>
+                    <p className="text-sm font-medium tabular-nums">{formatTokenK(entry.promptTokenCount)}</p>
                   </div>
                 )}
                 {entry.completionTokenCount != null && (
                   <div className="rounded-lg bg-muted/50 p-2">
                     <p className="text-[10px] text-muted-foreground">{t("resource.completionTokens")}</p>
-                    <p className="text-sm font-mono font-medium">{formatTokenK(entry.completionTokenCount)}</p>
+                    <p className="text-sm font-medium tabular-nums">{formatTokenK(entry.completionTokenCount)}</p>
                   </div>
                 )}
                 {entry.cacheHitTokenCount != null && entry.cacheHitTokenCount > 0 && (
                   <div className="rounded-lg bg-muted/50 p-2">
                     <p className="text-[10px] text-muted-foreground">{t("resource.cacheHit")}</p>
-                    <p className="text-sm font-mono font-medium">{formatTokenK(entry.cacheHitTokenCount)}</p>
+                    <p className="text-sm font-medium tabular-nums">{formatTokenK(entry.cacheHitTokenCount)}</p>
                   </div>
                 )}
               </div>

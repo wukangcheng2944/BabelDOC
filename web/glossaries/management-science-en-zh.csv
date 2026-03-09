@@ -1,0 +1,217 @@
+source,target,tgt_lng
+Operations Research,运筹学,zh
+Management Science,管理科学,zh
+Decision Theory,决策理论,zh
+Game Theory,博弈论,zh
+Linear Programming,线性规划,zh
+Integer Programming,整数规划,zh
+Nonlinear Programming,非线性规划,zh
+Dynamic Programming,动态规划,zh
+Stochastic Programming,随机规划,zh
+Convex Optimization,凸优化,zh
+Combinatorial Optimization,组合优化,zh
+Multi-objective Optimization,多目标优化,zh
+Constraint Satisfaction,约束满足,zh
+Feasible Region,可行域,zh
+Objective Function,目标函数,zh
+Decision Variable,决策变量,zh
+Slack Variable,松弛变量,zh
+Dual Problem,对偶问题,zh
+Simplex Method,单纯形法,zh
+Interior Point Method,内点法,zh
+Branch and Bound,分支定界法,zh
+Cutting Plane Method,割平面法,zh
+Sensitivity Analysis,灵敏度分析,zh
+Shadow Price,影子价格,zh
+Reduced Cost,检验数,zh
+Queuing Theory,排队论,zh
+Markov Chain,马尔可夫链,zh
+Markov Decision Process,马尔可夫决策过程,zh
+Monte Carlo Simulation,蒙特卡洛模拟,zh
+Discrete Event Simulation,离散事件模拟,zh
+Stochastic Process,随机过程,zh
+Poisson Process,泊松过程,zh
+Arrival Rate,到达率,zh
+Service Rate,服务率,zh
+Utilization Rate,利用率,zh
+Steady State,稳态,zh
+Network Flow,网络流,zh
+Maximum Flow,最大流,zh
+Minimum Cost Flow,最小费用流,zh
+Shortest Path,最短路径,zh
+Critical Path Method,关键路径法,zh
+Project Scheduling,项目调度,zh
+Gantt Chart,甘特图,zh
+PERT,计划评审技术,zh
+Work Breakdown Structure,工作分解结构,zh
+Supply Chain Management,供应链管理,zh
+Inventory Management,库存管理,zh
+Economic Order Quantity,经济订货量,zh
+Safety Stock,安全库存,zh
+Lead Time,提前期,zh
+Bullwhip Effect,牛鞭效应,zh
+Demand Forecasting,需求预测,zh
+Time Series Analysis,时间序列分析,zh
+Exponential Smoothing,指数平滑法,zh
+Moving Average,移动平均,zh
+Regression Analysis,回归分析,zh
+Multiple Regression,多元回归,zh
+Logistic Regression,逻辑回归,zh
+Hypothesis Testing,假设检验,zh
+Confidence Interval,置信区间,zh
+Statistical Significance,统计显著性,zh
+Analysis of Variance,方差分析,zh
+Chi-Square Test,卡方检验,zh
+Bayesian Analysis,贝叶斯分析,zh
+Prior Probability,先验概率,zh
+Posterior Probability,后验概率,zh
+Likelihood Function,似然函数,zh
+Maximum Likelihood Estimation,最大似然估计,zh
+Data Envelopment Analysis,数据包络分析,zh
+Total Factor Productivity,全要素生产率,zh
+Technical Efficiency,技术效率,zh
+Allocative Efficiency,配置效率,zh
+Returns to Scale,规模报酬,zh
+Economies of Scale,规模经济,zh
+Economies of Scope,范围经济,zh
+Transaction Cost,交易成本,zh
+Agency Theory,代理理论,zh
+Principal-Agent Problem,委托代理问题,zh
+Moral Hazard,道德风险,zh
+Adverse Selection,逆向选择,zh
+Information Asymmetry,信息不对称,zh
+Signaling Theory,信号理论,zh
+Bounded Rationality,有限理性,zh
+Satisficing,满意决策,zh
+Prospect Theory,前景理论,zh
+Loss Aversion,损失厌恶,zh
+Anchoring Effect,锚定效应,zh
+Heuristic,启发式方法,zh
+Cognitive Bias,认知偏差,zh
+Risk Management,风险管理,zh
+Value at Risk,风险价值,zh
+Expected Utility,期望效用,zh
+Risk Aversion,风险规避,zh
+Portfolio Theory,投资组合理论,zh
+Capital Asset Pricing Model,资本资产定价模型,zh
+Efficient Market Hypothesis,有效市场假说,zh
+Net Present Value,净现值,zh
+Internal Rate of Return,内部收益率,zh
+Discounted Cash Flow,折现现金流,zh
+Real Options,实物期权,zh
+Strategic Management,战略管理,zh
+Competitive Advantage,竞争优势,zh
+Core Competence,核心竞争力,zh
+Resource-Based View,资源基础观,zh
+Dynamic Capability,动态能力,zh
+SWOT Analysis,SWOT分析,zh
+Five Forces Model,五力模型,zh
+Value Chain,价值链,zh
+Blue Ocean Strategy,蓝海战略,zh
+Disruptive Innovation,颠覆性创新,zh
+First Mover Advantage,先发优势,zh
+Organizational Behavior,组织行为学,zh
+Organizational Culture,组织文化,zh
+Leadership Theory,领导力理论,zh
+Transformational Leadership,变革型领导,zh
+Servant Leadership,服务型领导,zh
+Motivation Theory,激励理论,zh
+Maslow's Hierarchy of Needs,马斯洛需求层次理论,zh
+Expectancy Theory,期望理论,zh
+Equity Theory,公平理论,zh
+Self-Determination Theory,自我决定理论,zh
+Job Satisfaction,工作满意度,zh
+Organizational Commitment,组织承诺,zh
+Employee Engagement,员工敬业度,zh
+Psychological Capital,心理资本,zh
+Knowledge Management,知识管理,zh
+Tacit Knowledge,隐性知识,zh
+Explicit Knowledge,显性知识,zh
+Organizational Learning,组织学习,zh
+Absorptive Capacity,吸收能力,zh
+Innovation Management,创新管理,zh
+Open Innovation,开放式创新,zh
+Technology Transfer,技术转移,zh
+Intellectual Property,知识产权,zh
+Research and Development,研究与开发,zh
+Total Quality Management,全面质量管理,zh
+Six Sigma,六西格玛,zh
+Lean Manufacturing,精益生产,zh
+Continuous Improvement,持续改进,zh
+Kaizen,改善,zh
+Statistical Process Control,统计过程控制,zh
+Quality Function Deployment,质量功能展开,zh
+Balanced Scorecard,平衡计分卡,zh
+Key Performance Indicator,关键绩效指标,zh
+Benchmarking,标杆管理,zh
+Stakeholder Theory,利益相关者理论,zh
+Corporate Social Responsibility,企业社会责任,zh
+Sustainability,可持续发展,zh
+ESG,环境社会治理,zh
+Triple Bottom Line,三重底线,zh
+Human Resource Management,人力资源管理,zh
+Talent Management,人才管理,zh
+Performance Appraisal,绩效考核,zh
+Compensation Management,薪酬管理,zh
+Recruitment,招聘,zh
+Training and Development,培训与开发,zh
+Structural Equation Modeling,结构方程模型,zh
+Confirmatory Factor Analysis,验证性因子分析,zh
+Exploratory Factor Analysis,探索性因子分析,zh
+Path Analysis,路径分析,zh
+Mediation Effect,中介效应,zh
+Moderation Effect,调节效应,zh
+Likert Scale,李克特量表,zh
+Cronbach's Alpha,克朗巴赫系数,zh
+Construct Validity,构念效度,zh
+Convergent Validity,收敛效度,zh
+Discriminant Validity,区分效度,zh
+Common Method Bias,共同方法偏差,zh
+Panel Data,面板数据,zh
+Cross-sectional Data,截面数据,zh
+Longitudinal Study,纵向研究,zh
+Case Study,案例研究,zh
+Grounded Theory,扎根理论,zh
+Meta-analysis,元分析,zh
+Systematic Review,系统综述,zh
+Endogeneity,内生性,zh
+Instrumental Variable,工具变量,zh
+Difference-in-Differences,双重差分法,zh
+Regression Discontinuity,断点回归,zh
+Propensity Score Matching,倾向得分匹配,zh
+Fixed Effects Model,固定效应模型,zh
+Random Effects Model,随机效应模型,zh
+Hierarchical Linear Model,多层线性模型,zh
+Survival Analysis,生存分析,zh
+Event History Analysis,事件史分析,zh
+Hazard Rate,风险率,zh
+Social Network Analysis,社会网络分析,zh
+Centrality,中心性,zh
+Network Density,网络密度,zh
+Structural Holes,结构洞,zh
+Weak Ties,弱关系,zh
+Institutional Theory,制度理论,zh
+Isomorphism,同构性,zh
+Legitimacy,合法性,zh
+Path Dependence,路径依赖,zh
+Entrepreneurship,创业,zh
+Venture Capital,风险投资,zh
+Business Model,商业模式,zh
+Platform Economy,平台经济,zh
+Digital Transformation,数字化转型,zh
+Industry 4.0,工业4.0,zh
+Internet of Things,物联网,zh
+Big Data Analytics,大数据分析,zh
+Business Intelligence,商业智能,zh
+Customer Relationship Management,客户关系管理,zh
+Enterprise Resource Planning,企业资源规划,zh
+Agile Management,敏捷管理,zh
+Scrum,敏捷冲刺,zh
+Design Thinking,设计思维,zh
+Systems Thinking,系统思维,zh
+Complexity Theory,复杂性理论,zh
+Chaos Theory,混沌理论,zh
+Agent-Based Modeling,基于主体的建模,zh
+System Dynamics,系统动力学,zh
+Feedback Loop,反馈回路,zh
+Emergent Behavior,涌现行为,zh

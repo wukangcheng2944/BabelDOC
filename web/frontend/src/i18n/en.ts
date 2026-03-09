@@ -1,11 +1,14 @@
 export const en = {
   app: {
-    title: 'BabelDOC Web',
+    title: 'K3 DocTranslate',
     subtitle: 'PDF Scientific Paper Translation Platform',
   },
   tabs: {
     translate: 'Translate',
     history: 'History',
+  },
+  task: {
+    title: 'Task',
   },
   nav: {
     file: 'File',
@@ -167,9 +170,9 @@ export const en = {
     debug: 'Debug Mode',
     debugDesc: 'Enable debug logging',
     skipTranslation: 'Skip Translation',
-    skipTranslationDesc: 'Only parse and generate PDF without translating',
+    skipTranslationDesc: 'Full PDF parsing (layout/tables/OCR) but skip the translation step',
     onlyParseGenerate: 'Only Parse & Generate',
-    onlyParseGenerateDesc: 'Only parse PDF and generate output without translation',
+    onlyParseGenerateDesc: 'Skip all processing stages, only parse PDF structure and generate output directly',
     ignoreCache: 'Ignore Cache',
     ignoreCacheDesc: 'Ignore translation cache',
     translateTable: 'Translate Table Text',

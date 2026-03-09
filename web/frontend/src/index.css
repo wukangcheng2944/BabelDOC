@@ -2,26 +2,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Light theme (default) */
 :root {
-  --background: oklch(0.1 0.005 285);
-  --foreground: oklch(0.93 0.005 285);
-  --card: oklch(0.14 0.005 285);
-  --card-foreground: oklch(0.93 0.005 285);
-  --popover: oklch(0.14 0.005 285);
-  --popover-foreground: oklch(0.93 0.005 285);
-  --primary: oklch(0.55 0.20 264);
+  --background: oklch(0.97 0.003 285);
+  --foreground: oklch(0.15 0.005 285);
+  --card: oklch(1.0 0 0);
+  --card-foreground: oklch(0.15 0.005 285);
+  --popover: oklch(1.0 0 0);
+  --popover-foreground: oklch(0.15 0.005 285);
+  --primary: oklch(0.50 0.20 264);
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.18 0.01 285);
-  --secondary-foreground: oklch(0.88 0.005 285);
-  --muted: oklch(0.18 0.005 285);
-  --muted-foreground: oklch(0.55 0.01 285);
-  --accent: oklch(0.18 0.01 285);
-  --accent-foreground: oklch(0.88 0.005 285);
+  --secondary: oklch(0.93 0.005 285);
+  --secondary-foreground: oklch(0.20 0.005 285);
+  --muted: oklch(0.93 0.003 285);
+  --muted-foreground: oklch(0.45 0.01 285);
+  --accent: oklch(0.93 0.005 285);
+  --accent-foreground: oklch(0.20 0.005 285);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.22 0.005 285);
-  --input: oklch(0.22 0.005 285);
-  --ring: oklch(0.55 0.20 264);
+  --border: oklch(0.88 0.005 285);
+  --input: oklch(0.90 0.003 285);
+  --ring: oklch(0.50 0.20 264);
   --radius: 0.625rem;
 
   --chart-1: oklch(0.646 0.222 41.116);
@@ -29,6 +30,29 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
+}
+
+/* Dark theme */
+.dark {
+  --background: oklch(0.1 0.005 285);
+  --foreground: oklch(0.93 0.005 285);
+  --card: oklch(0.19 0.005 285);
+  --card-foreground: oklch(0.93 0.005 285);
+  --popover: oklch(0.19 0.005 285);
+  --popover-foreground: oklch(0.93 0.005 285);
+  --primary: oklch(0.55 0.20 264);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.22 0.01 285);
+  --secondary-foreground: oklch(0.88 0.005 285);
+  --muted: oklch(0.22 0.005 285);
+  --muted-foreground: oklch(0.55 0.01 285);
+  --accent: oklch(0.22 0.01 285);
+  --accent-foreground: oklch(0.88 0.005 285);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.28 0.005 285);
+  --input: oklch(0.25 0.005 285);
+  --ring: oklch(0.55 0.20 264);
 }
 
 @theme inline {
@@ -68,9 +92,14 @@
     @apply bg-background text-foreground antialiased;
     font-family: Inter, system-ui, -apple-system, sans-serif;
     background-image:
+      linear-gradient(oklch(0.90 0.003 285 / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.90 0.003 285 / 0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .dark body {
+    background-image:
       linear-gradient(oklch(0.18 0.005 285 / 0.5) 1px, transparent 1px),
       linear-gradient(90deg, oklch(0.18 0.005 285 / 0.5) 1px, transparent 1px);
-    background-size: 60px 60px;
   }
 }
 
@@ -110,7 +139,7 @@
 .bento-card::before {
   background: radial-gradient(
     600px circle at var(--mouse-x) var(--mouse-y),
-    oklch(0.55 0.20 264 / 0.07),
+    oklch(0.50 0.20 264 / 0.04),
     transparent 40%
   );
   z-index: 1;
@@ -120,7 +149,7 @@
 .bento-card::after {
   background: radial-gradient(
     400px circle at var(--mouse-x) var(--mouse-y),
-    oklch(0.55 0.20 264 / 0.25),
+    oklch(0.50 0.20 264 / 0.15),
     transparent 40%
   );
   z-index: 1;
@@ -135,6 +164,23 @@
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+}
+
+/* Dark mode: stronger glow */
+.dark .bento-card::before {
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    oklch(0.55 0.20 264 / 0.07),
+    transparent 40%
+  );
+}
+
+.dark .bento-card::after {
+  background: radial-gradient(
+    400px circle at var(--mouse-x) var(--mouse-y),
+    oklch(0.55 0.20 264 / 0.25),
+    transparent 40%
+  );
 }
 
 .bento-card:hover::before,

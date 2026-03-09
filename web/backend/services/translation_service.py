@@ -214,7 +214,7 @@ async def run_translation(
         for gid in glossary_ids:
             gpath = get_glossary_path(gid)
             if gpath:
-                glossary = Glossary.from_csv(str(gpath), config.lang_out)
+                glossary = Glossary.from_csv(gpath, config.lang_out)
                 glossaries.append(glossary)
 
         # Parse watermark mode
